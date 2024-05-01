@@ -2,6 +2,9 @@ const ROCK = 'rock';
 const PAPER = 'paper';
 const SCISSORS = 'scissors';
 
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const randomNum = Math.floor(Math.random() * 3)
 
@@ -36,7 +39,39 @@ function getHumanChoice() {
     }
 }
 
-let humanScore = 0;
-let computerScore = 0;
+function playRound(humanChoice, computerChoice) {
+    if((humanChoice === ROCK && computerChoice === SCISSORS) ||
+        (humanChoice === SCISSORS && computerChoice === PAPER) ||
+        (humanChoice === PAPER && computerChoice === ROCK)) {
+        humanScore++;
+        console.log(`You win. ${humanChoice} beats ${computerChoice}. Pure luck.`)
+    } else {
+        computerScore++;
+        console.log(`You lost. ${computerChoice} beats ${humanChoice}. No luck huh?.`)
+    }
+    console.log(`Current score is: \nYou: ${humanScore} \nComputer: ${computerScore}`);
+    console.log('');
+}
 
-console.log(getHumanChoice());
+function playGame() {
+    console.log(`Let the game begin! There will be a game of 5 rounds. Good luck!`);
+    console.log('');
+    let counter = 0;
+
+    while(counter < 6) {
+        console.log(`Round: ${counter}`)
+        playRound(getHumanChoice(), getComputerChoice());
+        counter++;
+    }
+
+
+    if(humanScore > computerScore) {
+        console.log(`Game is finished! You've won. You're luckier than computer so far.`)
+    } else {
+        console.log(`Game is finished! You've lost. You're unluckier than computer. Bruh.`)
+    }
+}
+
+playGame();
+
+
