@@ -44,7 +44,7 @@ function playRound(humanChoice, computerChoice) {
 
     results.appendChild(gameResult);
 
-    gameResult.textContent = `Current score is: \nYou: ${humanScore} \nComputer: ${computerScore}`;
+    gameResult.textContent = `Current score is: { \nYou: ${humanScore} \nComputer: ${computerScore} }`;
     results.appendChild(gameResult)
 
     checkForWinner(results);

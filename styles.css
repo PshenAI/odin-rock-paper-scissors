@@ -12,6 +12,8 @@ button {
     height: 300px;
     width: 300px;
     border-radius: 2px;
+    flex-grow: 0;
+    flex-basis: auto;
 }
 
 button:hover {
@@ -30,9 +32,11 @@ button:disabled {
     align-items: center;
     height: 80%;
     gap: 100px;
+    margin: 50px 100px;
 }
 
 .results {
+    font-size: 18px;
     color: white;
     height: 20%;
     text-align: center;
