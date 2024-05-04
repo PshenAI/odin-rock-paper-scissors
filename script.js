@@ -2,76 +2,105 @@ const ROCK = 'rock';
 const PAPER = 'paper';
 const SCISSORS = 'scissors';
 
+const pointsToWin = 5;
+
 let humanScore = 0;
 let computerScore = 0;
+
+const buttons = document.querySelector(".buttons");
+buttons.addEventListener('click', playButtonClick);
 
 function getComputerChoice() {
     const randomNum = Math.floor(Math.random() * 3)
 
     if(randomNum === 0) {
-        return "rock";
+        return ROCK;
     } else if (randomNum === 1) {
-        return "paper";
+        return PAPER;
     } else if (randomNum === 2) {
-        return "scissors";
-    }
-}
-
-function getHumanChoice() {
-
-    let toggle = true;
-
-    while(toggle) {
-        const userInput = prompt('Enter your choice: ').toLowerCase();
-
-        if(userInput === ROCK) {
-            toggle = false;
-            return "rock";
-        } else if (userInput === PAPER) {
-            toggle = false;
-            return "paper";
-        } else if (userInput === SCISSORS) {
-            toggle = false;
-            return "scissors";
-        } else {
-            console.log("Enter valid value! (rock | paper | scissors)");
-        }
+        return SCISSORS;
     }
 }
 
 function playRound(humanChoice, computerChoice) {
+    const results = document.querySelector(".results");
+
+    const roundResult = document.querySelector(".round-result");
+    const gameResult = document.querySelector(".game-result");
     if((humanChoice === ROCK && computerChoice === SCISSORS) ||
         (humanChoice === SCISSORS && computerChoice === PAPER) ||
         (humanChoice === PAPER && computerChoice === ROCK)) {
         humanScore++;
-        console.log(`You win. ${humanChoice} beats ${computerChoice}. Pure luck.`)
+
+        roundResult.textContent = `You win the round. ${humanChoice} beats ${computerChoice}. Pure luck.`;
+    } else if(humanChoice === computerChoice) {
+        roundResult.textContent = `Tie. Try again.`;
     } else {
         computerScore++;
-        console.log(`You lost. ${computerChoice} beats ${humanChoice}. No luck huh?.`)
+
+        roundResult.textContent = `You lost the round. ${humanChoice} loses to ${computerChoice}. No luck huh?.`;
     }
-    console.log(`Current score is: \nYou: ${humanScore} \nComputer: ${computerScore}`);
-    console.log('');
+
+
+    results.appendChild(gameResult);
+
+    gameResult.textContent = `Current score is: \nYou: ${humanScore} \nComputer: ${computerScore}`;
+    results.appendChild(gameResult)
+
+    checkForWinner(results);
 }
 
-function playGame() {
-    console.log(`Let the game begin! There will be a game of 5 rounds. Good luck!`);
-    console.log('');
-    let counter = 0;
+function playButtonClick(event) {
+    const button = event.target;
 
-    while(counter < 6) {
-        console.log(`Round: ${counter}`)
-        playRound(getHumanChoice(), getComputerChoice());
-        counter++;
-    }
-
-
-    if(humanScore > computerScore) {
-        console.log(`Game is finished! You've won. You're luckier than computer so far.`)
-    } else {
-        console.log(`Game is finished! You've lost. You're unluckier than computer. Bruh.`)
+    switch (button.className) {
+        case 'r-button' :
+            console.log('User chose rock!')
+            playRound(ROCK, getComputerChoice());
+            break;
+        case 'p-button' :
+            console.log('User chose paper!');
+            playRound(PAPER, getComputerChoice());
+            break;
+        case 's-button' :
+            console.log('User chose scissors!');
+            playRound(SCISSORS, getComputerChoice());
+            break;
     }
 }
 
-playGame();
+function checkForWinner(container) {
+    if(humanScore === pointsToWin || computerScore === pointsToWin) {
+        const prevResult = document.querySelector(".round-result");
+
+        if(prevResult !== null) {
+            prevResult.textContent = '';
+        }
+
+        if(humanScore === pointsToWin) {
+            const winnerPara = document.querySelector(".winner");
+            winnerPara.textContent = "You've won! Congrats. Your luck is better than that of a computer."
+
+            container.appendChild(winnerPara);
+        } else if (computerScore === pointsToWin) {
+            const winnerPara = document.querySelector(".winner");
+            winnerPara.textContent = "You've lost! Bruh. Your luck is worse than that of a computer."
+
+            container.appendChild(winnerPara);
+        }
+
+        deactivateButtons();
+    }
+
+}
+
+function deactivateButtons() {
+    const buttons = document.querySelector(".buttons").querySelectorAll("button");
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    })
+}
+
 
 
