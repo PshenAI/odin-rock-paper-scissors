@@ -1,0 +1,39 @@
+body {
+    font-family: "Courier New", sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+button {
+    font-family: inherit;
+    font-size: 48px;
+    height: 300px;
+    width: 300px;
+    border-radius: 2px;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+}
+
+button:disabled {
+    background-color: grey;
+    color: white;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    gap: 100px;
+}
+
+.results {
+    color: white;
+    height: 20%;
+    text-align: center;
+}

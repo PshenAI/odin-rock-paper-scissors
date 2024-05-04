@@ -2,7 +2,7 @@ const ROCK = 'rock';
 const PAPER = 'paper';
 const SCISSORS = 'scissors';
 
-const pointsToWin = 5;
+const POINTS_TO_WIN = 5;
 
 let humanScore = 0;
 let computerScore = 0;
@@ -70,19 +70,19 @@ function playButtonClick(event) {
 }
 
 function checkForWinner(container) {
-    if(humanScore === pointsToWin || computerScore === pointsToWin) {
+    if(humanScore === POINTS_TO_WIN || computerScore === POINTS_TO_WIN) {
         const prevResult = document.querySelector(".round-result");
 
         if(prevResult !== null) {
             prevResult.textContent = '';
         }
 
-        if(humanScore === pointsToWin) {
+        if(humanScore === POINTS_TO_WIN) {
             const winnerPara = document.querySelector(".winner");
             winnerPara.textContent = "You've won! Congrats. Your luck is better than that of a computer."
 
             container.appendChild(winnerPara);
-        } else if (computerScore === pointsToWin) {
+        } else if (computerScore === POINTS_TO_WIN) {
             const winnerPara = document.querySelector(".winner");
             winnerPara.textContent = "You've lost! Bruh. Your luck is worse than that of a computer."
 
